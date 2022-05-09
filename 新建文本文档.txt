@@ -1,0 +1,46 @@
+create table stu(
+学号 char(4) primary key,
+姓名 char(8),
+性别 char(2),
+出生日期 date
+
+
+);
+create table sc(
+学号 char(4) ,
+课号 char(4) not null,
+成绩 decimal(5,2) ,
+check (成绩>=0 and 成绩 <=100),
+constraint fk_sno foreign key (学号) REFERENCES
+stu(学号)
+
+);
+
+
+
+create table course(
+课号 char(4) not null,
+课名 char(20),
+学分 int,
+CONSTRAINT uq_cname unique(课名)
+
+);
+
+alter table course add primary key(课号);
+
+alter table sc add constraint fk_cno foreign key(课号) REFERENCES
+course(课号);
+
+insert into  course values('sss','jak',78);
+
+alter table stu add CONSTRAINT  uq_name unique(姓名);
+
+alter table course add CONSTRAINT ck_xf check(学分>0);
+
+insert into  course values('adsd','我是',-1);
+
+alter table sc drop FOREIGN Key fk_cno,fk_sno;
+
+alter table  stu drop PRIMARY key;
+
+alter table course drop CONSTRAINT uq_cname;
